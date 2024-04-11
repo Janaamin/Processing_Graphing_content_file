@@ -6,13 +6,13 @@ import matplotlib.pyplot as plt
 # Define a function to plot a graph from the list of items
 def plot_results(items, title, xlabel, ylabel, callout_text):
     # Set size of the plot
-    plt.figure(figsize=(15, 8))
+    plt.figure(figsize=(16, 7))
 
     # Unzip items into separate lists for plotting
     words, frequencies = zip(*items)
 
     # Create a bar chart
-    bars = plt.bar(words, frequencies, color='red')
+    bars = plt.bar(words, frequencies, color='green')
 
     # Add title and labels to the plot
     plt.title(title)
@@ -43,7 +43,10 @@ with open('Frankenstein.txt', 'r', encoding='utf-8') as file:
 
 # Use regular expression to split text into words and punctuation
 # Apostrophes are included in words, everything else is treated as separate
-words = re.findall(r'\b\w+\'?\w*|\b\w+|\S', text)
+words = re.findall(r'\b\w+\w*|\b\w+|[^\w\s"]', text)
+exclude_items = ['”', '“']
+word_count = Counter(word for word in words if word not in exclude_items)
+
 
 # Create a Counter to count occurrences of each word or punctuation
 word_count = Counter(words)
